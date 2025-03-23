@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machzaul To-Do List</title>
+    <style>
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(20px); }
+            100% { transform: translateX(0); }
+        }
+        
+        @keyframes waveReverse {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-20px); }
+            100% { transform: translateX(0); }
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #0a192f;
+            flex-direction: column;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+        .headline {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #64ffda;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            z-index: 1;
+        }
+        .waves div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+            border-radius: 50px 50px 0 0;
+        }
+        .wave1 {
+            background: #64ffda;
+            height: 100px;
+            animation: wave 5s infinite linear;
+        }
+        .wave2 {
+            background: #3ddc97;
+            height: 120px;
+            opacity: 0.8;
+            animation: waveReverse 5s infinite linear;
+        }
+        .wave3 {
+            background: #0a192f;
+            height: 140px;
+            opacity: 0.6;
+            animation: wave 5s infinite linear;
+        }
+        h2 {
+            color: #64ffda;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        input, button, select {
+            width: 90%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        button {
+            background: #64ffda;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background: #3ddc97;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid #64ffda;
+            border-radius: 5px;
+            margin-top: 5px;
+            color: white;
+        }
+        li.completed span {
+            text-decoration: line-through;
+            color: #64ffda;
+        }
+        .schedule {
+            font-size: 12px;
+            color: #64ffda;
+        }
+    </style>
+</head>
+<body>
+    <div class="headline">Machzaul</div>
+    <div class="container">
+        <h2>Machzaul To-Do List</h2>
+        <div class="input-container">
+            <input type="text" id="taskInput" placeholder="Tambahkan tugas">
+            <input type="datetime-local" id="taskSchedule">
+            <button id="addTaskBtn">Tambah</button>
+            <button id="clearTasksBtn" style="background: rgb(17, 169, 163);">Hapus Semua</button>
+        </div>
+        <div class="input-container">
+            <select id="filter">
+                <option value="all">Semua</option>
+                <option value="completed">Selesai</option>
+                <option value="incomplete">Belum Selesai</option>
+            </select>
+        </div>
+        <ul id="taskList"></ul>
+    </div>
+    <div class="waves">
+        <div class="wave1"></div>
+        <div class="wave2"></div>
+        <div class="wave3"></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("addTaskBtn").addEventListener("click", addTask);
+            document.getElementById("clearTasksBtn").addEventListener("click", clearTasks);
+            document.getElementById("filter").addEventListener("change", renderTasks);
+            renderTasks();
+        });
+
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskSchedule = document.getElementById("taskSchedule");
+            let taskText = taskInput.value.trim();
+            let schedule = taskSchedule.value || "Tidak ada jadwal";
+            if (taskText === "") return;
+            
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks.push({ text: taskText, schedule: schedule, completed: false });
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+            
+            taskInput.value = "";
+            taskSchedule.value = "";
+            renderTasks();
+        }
+        
+        function renderTasks() {
+            let taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            let filter = document.getElementById("filter").value;
+            
+            tasks.forEach((task, index) => {
+                if (filter === "completed" && !task.completed) return;
+                if (filter === "incomplete" && task.completed) return;
+                
+                let li = document.createElement("li");
+                li.className = task.completed ? "completed" : "";
+                
+                let checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.checked = task.completed;
+                checkbox.addEventListener("click", () => toggleTask(index));
+                
+                let span = document.createElement("span");
+                span.textContent = task.text;
+                
+                let schedule = document.createElement("span");
+                schedule.className = "schedule";
+                schedule.textContent = task.schedule;
+                
+                let deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "Hapus";
+                deleteBtn.addEventListener("click", () => deleteTask(index));
+                
+                li.appendChild(checkbox);
+                li.appendChild(span);
+                li.appendChild(schedule);
+                li.appendChild(deleteBtn);
+                taskList.appendChild(li);
+            });
+        }
+
+        function toggleTask(index) {
+            let tasks = JSON.parse(localStorage.getItem("tasks"));
+            if (tasks) {
+                tasks[index].completed = !tasks[index].completed;
+                localStorage.setItem("tasks", JSON.stringify(tasks));
+                renderTasks();
+            }
+        }
+
+        function deleteTask(index) {
+            let tasks = JSON.parse(localStorage.getItem("tasks"));
+            if (tasks) {
+                tasks.splice(index, 1);
+                localStorage.setItem("tasks", JSON.stringify(tasks));
+                renderTasks();
+            }
+        }
+
+        function clearTasks() {
+            localStorage.removeItem("tasks");
+            renderTasks();
+        }
+    </script>
+</body>
+</html>

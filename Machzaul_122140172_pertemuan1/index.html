@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validasi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #0a192f;
+            flex-direction: column;
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #64ffda;
+        }
+        input, button {
+            width: 90%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #64ffda;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background: #3ddc97;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        #calcBtn, #todoBtn {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Form Validasi</h2>
+        <input type="text" id="name" placeholder="Nama">
+        <div class="error" id="nameError"></div>
+        <input type="email" id="email" placeholder="Email">
+        <div class="error" id="emailError"></div>
+        <input type="password" id="password" placeholder="Password">
+        <div class="error" id="passwordError"></div>
+        <button onclick="validateForm()">Submit</button>
+        <br>
+        <button id="calcBtn" onclick="location.href='kalkulator.html'">Kalkulator</button>
+        <button id="todoBtn" onclick="location.href='todolist.html'">To-Do List</button>
+    </div>
+    <script>
+        function validateForm() {
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            let nameError = document.getElementById('nameError');
+            let emailError = document.getElementById('emailError');
+            let passwordError = document.getElementById('passwordError');
+            let calcBtn = document.getElementById('calcBtn');
+            let todoBtn = document.getElementById('todoBtn');
+            let isValid = true;
+
+            nameError.innerText = "";
+            emailError.innerText = "";
+            passwordError.innerText = "";
+
+            if (name.length <= 3) {
+                nameError.innerText = "Nama harus lebih dari 3 karakter";
+                isValid = false;
+            }
+            if (!email.includes('@') || !email.includes('.')) {
+                emailError.innerText = "Email tidak valid";
+                isValid = false;
+            }
+            if (password.length < 8) {
+                passwordError.innerText = "Password minimal 8 karakter";
+                isValid = false;
+            }
+            if (isValid) {
+                alert("Form berhasil divalidasi!");
+                calcBtn.style.display = "inline-block";
+                todoBtn.style.display = "inline-block";
+            }
+        }
+    </script>
+</body>
+</html>

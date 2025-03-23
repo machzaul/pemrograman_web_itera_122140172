@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Sederhana</title>
+    <style>
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(20px); }
+            100% { transform: translateX(0); }
+        }
+        
+        @keyframes waveReverse {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-20px); }
+            100% { transform: translateX(0); }
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #0a192f;
+            flex-direction: column;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+        .headline {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #64ffda;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        h2 {
+            color: #64ffda;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        input, button, select {
+            width: 90%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+        select option {
+            background: #0a192f;
+            color: white;
+        }
+        button {
+            background: #64ffda;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background: #3ddc97;
+        }
+        .waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            z-index: 1;
+        }
+        .waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            z-index: 1;
+        }
+        .waves div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+            border-radius: 50px 50px 0 0;
+        }
+        .wave1 {
+            background: #64ffda;
+            height: 100px;
+            animation: wave 5s infinite linear;
+        }
+        .wave2 {
+            background: #3ddc97;
+            height: 120px;
+            opacity: 0.8;
+            animation: waveReverse 5s infinite linear;
+        }
+        .wave3 {
+            background: #0a192f;
+            height: 140px;
+            opacity: 0.6;
+            animation: wave 5s infinite linear;
+        }
+    </style>
+</head>
+<body>
+    <div class="headline">Kalkulator</div>
+    <div class="container">
+        <h2>Kalkulator Sederhana</h2>
+        <div class="input-container">
+            <input type="number" id="num1" placeholder="Masukkan angka pertama">
+            <input type="number" id="num2" placeholder="Masukkan angka kedua">
+            <select id="operation">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">×</option>
+                <option value="/">÷</option>
+                <option value="^">Pangkat</option>
+                <option value="sqrt">Akar Kuadrat (angka pertama)</option>
+                <option value="%">Modulus</option>
+            </select>
+            <button onclick="hitung()">Hitung</button>
+        </div>
+        <h3>Hasil: <span id="result">-</span></h3>
+    </div>
+    <div class="waves">
+        <div class="wave1"></div>
+        <div class="wave2"></div>
+        <div class="wave3"></div>
+    </div>
+    <script>
+        function hitung() {
+            let num1 = parseFloat(document.getElementById('num1').value);
+            let num2 = parseFloat(document.getElementById('num2').value);
+            let operation = document.getElementById('operation').value;
+            let result;
+            
+            switch(operation) {
+                case '+': result = num1 + num2; break;
+                case '-': result = num1 - num2; break;
+                case '*': result = num1 * num2; break;
+                case '/': result = num2 !== 0 ? num1 / num2 : 'Error: Bagi 0'; break;
+                case '^': result = Math.pow(num1, num2); break;
+                case 'sqrt': result = Math.sqrt(num1); break;
+                case '%': result = num1 % num2; break;
+                default: result = 'Operasi tidak valid';
+            }
+            
+            document.getElementById('result').innerText = result;
+        }
+    </script>
+</body>
+</html>
