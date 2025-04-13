@@ -3,30 +3,30 @@ body {
     background: #f4f4f4;
     margin: 0;
     padding: 2rem;
-  }
-  
-  .container {
+}
+
+.container {
     max-width: 600px;
     margin: auto;
     background: white;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 0 20px #ccc;
-  }
-  
-  h1, h2 {
+}
+
+h1, h2 {
     color: #2c3e50;
-  }
-  
-  input, textarea {
+}
+
+input, textarea {
     width: 100%;
     padding: 0.7rem;
     margin: 0.5rem 0;
     border: 1px solid #ddd;
     border-radius: 5px;
-  }
-  
-  button {
+}
+
+button {
     padding: 0.7rem 1rem;
     margin-bottom: 1rem;
     background-color: #3498db;
@@ -34,19 +34,18 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  ul {
+}
+
+ul {
     list-style-type: none;
     padding-left: 0;
-  }
-  
-  li {
+}
+
+li {
     background: #ecf0f1;
     margin-bottom: 0.5rem;
     padding: 0.7rem;
     display: flex;
     justify-content: space-between;
     border-radius: 5px;
-  }
-  
+}
