@@ -12,7 +12,7 @@ Aplikasi dashboard sederhana berbasis web yang membantu mahasiswa untuk mengatur
 ## 📸 Screenshot
 
 
-[Screenshot Dashboard](praktikum2.png)
+![Screenshot Dashboard](praktikum2.png)
 
 ## 🛠️ Teknologi yang Digunakan
 
