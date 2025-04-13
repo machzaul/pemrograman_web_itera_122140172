@@ -11,9 +11,8 @@ Aplikasi dashboard sederhana berbasis web yang membantu mahasiswa untuk mengatur
 
 ## 📸 Screenshot
 
-> *(Tambahkan gambar tampilan aplikasi di sini jika sudah tersedia, contoh:)*
 
-![Screenshot Dashboard](screenshot.png)
+![Screenshot Dashboard](praktikum 2.png)
 
 ## 🛠️ Teknologi yang Digunakan
 
