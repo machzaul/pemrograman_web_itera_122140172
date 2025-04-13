@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Productivity Board</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎓 Student Productivity Board</h1>
+    <div class="clock" id="clock">Loading time...</div>
+
+    <section>
+      <h2>📅 Jadwal Kuliah</h2>
+      <input id="scheduleInput" placeholder="Contoh: Senin 08.00 - Matematika" />
+      <button onclick="dashboard.addSchedule()">Tambah</button>
+      <ul id="scheduleList"></ul>
+    </section>
+
+    <section>
+      <h2>✅ Daftar Tugas</h2>
+      <input id="taskInput" placeholder="Contoh: Kerjakan tugas PBO" />
+      <button onclick="dashboard.addTask()">Tambah</button>
+      <ul id="taskList"></ul>
+    </section>
+
+    <section>
+      <h2>📝 Catatan</h2>
+      <textarea id="noteInput" placeholder="Contoh: Reminder: bawa flashdisk besok!"></textarea>
+      <button onclick="dashboard.saveNote()">Simpan Catatan</button>
+      <p id="savedNote"></p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
