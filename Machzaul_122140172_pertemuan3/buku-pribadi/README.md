@@ -97,5 +97,12 @@ Menampilkan semua buku + filter & pencarian
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/username/book-manager-app.git
-cd book-manager-app
+git clone https://github.com/username/Pemrograman_web_itera_122140172.git
+cd Machzaul_122140172_pertemuan3
+cd buku-pribadi
+
+npm install
+npm run dev
+
+##  Test nya 
+npm run test
