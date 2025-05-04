@@ -1,4 +1,4 @@
-readme_content = """
+
 #  Sistem Manajemen Perpustakaan Sederhana
 
 Sistem ini merupakan aplikasi terminal sederhana untuk mengelola item perpustakaan (buku dan majalah) menggunakan konsep Object-Oriented Programming (OOP) di Python. Fitur-fitur seperti **penambahan**, **pencarian**, **penghapusan**, dan **pengeditan** item telah diimplementasikan.
